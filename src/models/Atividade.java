@@ -3,14 +3,14 @@ package models;
 import java.time.LocalDate;
 
 public class Atividade {
-    private int id;
+    private Integer id;
     private String titulo;
     private String descricao;
     private String tipo;
     private LocalDate dataCriacao;
     private LocalDate dataEntrega;
 
-    public Atividade(int id, String titulo, String descricao, String tipo, LocalDate dataCriacao,
+    public Atividade(Integer id, String titulo, String descricao, String tipo, LocalDate dataCriacao,
             LocalDate dataEntrega) {
         super();
         this.id = id;
@@ -25,7 +25,7 @@ public class Atividade {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

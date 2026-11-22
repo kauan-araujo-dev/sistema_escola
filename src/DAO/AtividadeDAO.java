@@ -55,7 +55,7 @@ public class AtividadeDAO implements DAO<Atividade> {
     }
 
     @Override
-    public Atividade fetch(int id) {
+    public Atividade find(int id) {
         String sql = "SELECT * FROM atividades WHERE id = ?";
 
         try {
@@ -85,7 +85,7 @@ public class AtividadeDAO implements DAO<Atividade> {
     }
 
     @Override
-    public List<Atividade> fetchAll() {
+    public List<Atividade> findAll() {
         String sql = "SELECT * FROM atividades";
 
         try {

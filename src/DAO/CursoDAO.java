@@ -51,7 +51,7 @@ public class CursoDAO implements DAO<Curso> {
     }
 
     @Override
-    public Curso fetch(int id) {
+    public Curso find(int id) {
         String sql = "SELECT * FROM cursos WHERE id = ?";
         try {
             Connection connection = Database.getConnection();
@@ -67,10 +67,12 @@ public class CursoDAO implements DAO<Curso> {
         } catch (Exception e) {
             System.out.println("Erro ao buscar curso");
         }
+        
+        return null;
     }
 
     @Override
-    public List<Curso> fetchAll() {
+    public List<Curso> findAll() {
         String sql = "SELECT * FROM cursos";
         try {
 

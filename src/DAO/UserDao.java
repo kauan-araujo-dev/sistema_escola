@@ -8,7 +8,7 @@ import java.util.List;
 import core.Database;
 import models.User;
 
-public class UserDao implements Dao<User> {
+public class UserDao implements DAO<User> {
 
 	public void insert(User user) {
 		String sql = "INSERT INTO users (nome, idade) VALUES (?, ?)";
@@ -49,7 +49,7 @@ public class UserDao implements Dao<User> {
 	}
 
 	@Override
-	public User fetch(int id) {
+	public User find(int id) {
 		String sql = "SELECT * FROM users WHERE id = ?";
 		try {
 
@@ -71,7 +71,7 @@ public class UserDao implements Dao<User> {
 	}
 
 	@Override
-	public List<User> fetchAll() {
+	public List<User> findAll() {
 		String sql = "SELECT * FROM users";
 		try {
 

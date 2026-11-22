@@ -1,14 +1,14 @@
 package models;
 
 public class Curso {
-    private int id;
+    private Integer id;
     private String nome;
     private String descricao;
     private String turno;
     private int cargaHoraria;
     private String modalidade;
 
-    public Curso(int id, String nome, String descricao, String turno, int cargaHoraria, String modalidade){
+    public Curso(Integer id, String nome, String descricao, String turno, int cargaHoraria, String modalidade){
         super();
         this.id = id;
         this.nome = nome;
@@ -22,7 +22,7 @@ public class Curso {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

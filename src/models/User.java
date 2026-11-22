@@ -1,11 +1,11 @@
 package models;
 
 public class User {
-	private int id;
+	private Integer id;
 	private String nome;
-	private int idade;
+	private Integer idade;
 	
-	public User(int id, String nome, int idade) {
+	public User(Integer id, String nome, int idade) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -16,7 +16,7 @@ public class User {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
