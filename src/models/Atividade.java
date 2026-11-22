@@ -9,9 +9,11 @@ public class Atividade {
     private String tipo;
     private LocalDate dataCriacao;
     private LocalDate dataEntrega;
+    private Integer idProfessor;
+    private Integer idMateria;
 
     public Atividade(Integer id, String titulo, String descricao, String tipo, LocalDate dataCriacao,
-            LocalDate dataEntrega) {
+        LocalDate dataEntrega, Integer idProfessor, Integer idMateria) {
         super();
         this.id = id;
         this.titulo = titulo;
@@ -19,6 +21,8 @@ public class Atividade {
         this.tipo = tipo;
         this.dataCriacao = dataCriacao;
         this.dataEntrega = dataEntrega;
+        this.idProfessor = idProfessor;
+        this.idMateria = idMateria;
     }
 
     public int getId() {
@@ -68,4 +72,21 @@ public class Atividade {
     public void setDataEntrega(LocalDate dataEntrega) {
         this.dataEntrega = dataEntrega;
     }
+
+    public int getIdProfessor(){
+        return idProfessor;
+    }
+
+    public void setIdProfessor(int idProfessor){
+        this.idProfessor = idProfessor;
+    }
+
+    public int getIdMateria(){
+        return idMateria;
+    }
+
+    public void setIdMateria(int idMateria){
+        this.idMateria = idMateria;
+    }
+
 }
