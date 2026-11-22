@@ -8,16 +8,6 @@ public class Curso {
     private int cargaHoraria;
     private String modalidade;
 
-    public Curso(Integer id, String nome, String descricao, String turno, int cargaHoraria, String modalidade){
-        super();
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.turno = turno;
-        this.cargaHoraria = cargaHoraria;
-        this.modalidade = modalidade;
-    }
-
     public int getId() {
         return id;
     }

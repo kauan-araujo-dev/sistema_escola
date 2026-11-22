@@ -1,31 +1,152 @@
 package controllers;
 
-import java.util.List;
-
 import DAO.AtividadeDAO;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import models.Atividade;
 
+import java.time.LocalDate;
+
 public class AtividadeController {
-    AtividadeDAO dao;
+
+    private ObservableList<Atividade> lista = FXCollections.observableArrayList();
+
+    private IntegerProperty id = new SimpleIntegerProperty(0);
+    private StringProperty titulo = new SimpleStringProperty("");
+    private StringProperty descricao = new SimpleStringProperty("");
+    private StringProperty tipo = new SimpleStringProperty("");
+    private StringProperty dataCriacao = new SimpleStringProperty("");
+    private StringProperty dataEntrega = new SimpleStringProperty("");
+    private IntegerProperty idProfessor = new SimpleIntegerProperty(0);
+    private IntegerProperty idMateria = new SimpleIntegerProperty(0);
+
+    private AtividadeDAO dao = new AtividadeDAO();
 
     public AtividadeController() {
-        dao = new AtividadeDAO();
+        //pesquisarTodos();
     }
 
-    public void add(String titulo, String descricao, String tipo, java.time.LocalDate dataCriacao, java.time.LocalDate dataEntrega, int idProfessor, int idMateria) {
-        dao.insert(new Atividade(null, titulo, descricao, tipo, dataCriacao, dataEntrega, idProfessor, idMateria));
+    public void popularAtividade(Atividade a) {
+        if (a != null) {
+            titulo.set(a.getTitulo());
+            descricao.set(a.getDescricao());
+            tipo.set(a.getTipo());
+            dataCriacao.set(a.getDataCriacao().toString());
+            dataEntrega.set(a.getDataEntrega().toString());
+            idProfessor.set(a.getIdProfessor());
+            idMateria.set(a.getIdMateria());
+        }
     }
 
-    public void edit(int id, String titulo, String descricao, String tipo, java.time.LocalDate dataCriacao, java.time.LocalDate dataEntrega, int idProfessor, int idMateria) {
-        dao.update(new Atividade(id, titulo, descricao, tipo, dataCriacao, dataEntrega, idProfessor, idMateria));
+    public void pesquisarTodos() {
+        lista.clear();
+        lista.addAll(dao.findAll());
     }
 
-    public Atividade list(int id) {
+    public boolean salvar() {
+
+        Atividade a = new Atividade();
+        a.setTitulo(titulo.get());
+        a.setDescricao(descricao.get());
+        a.setTipo(tipo.get());
+        a.setDataCriacao(LocalDate.parse(dataCriacao.get()));
+        a.setDataEntrega(LocalDate.parse(dataEntrega.get()));
+        a.setIdProfessor(idProfessor.get());
+        a.setIdMateria(idMateria.get());
+
+        if (id.get() == 0) {
+            dao.insert(a);
+        } else {
+            a.setId(id.get());
+            dao.update(a);
+        }
+
+        pesquisarTodos();
+        limparCampos();
+
+        return true;
+    }
+
+    public void limparCampos() {
+        id.set(0);
+        titulo.set("");
+        descricao.set("");
+        tipo.set("");
+        dataCriacao.set("");
+        dataEntrega.set("");
+        idProfessor.set(0);
+        idMateria.set(0);
+    }
+
+    public void excluir(Atividade a) {
+        dao.delete(a.getId());
+        pesquisarTodos();
+    }
+
+    public void atualizar(Atividade a) {
+        if (a != null) {
+            id.set(a.getId());
+            titulo.set(a.getTitulo());
+            descricao.set(a.getDescricao());
+            tipo.set(a.getTipo());
+            dataCriacao.set(a.getDataCriacao().toString());
+            dataEntrega.set(a.getDataEntrega().toString());
+            idProfessor.set(a.getIdProfessor());
+            idMateria.set(a.getIdMateria());
+        }
+    }
+
+    public Atividade pesquisar(int id) {
         return dao.find(id);
     }
 
-    public List<Atividade> listAll() {
-        return dao.findAll();
+    public void pesquisar(Atividade a) {
+        lista.clear();
+        lista.addAll(dao.findAll());
+
+        lista.removeIf(atividade ->
+            !atividade.getTitulo().toLowerCase()
+                .contains(a.getTitulo().toLowerCase())
+        );
     }
 
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public StringProperty tituloProperty() {
+        return titulo;
+    }
+
+    public StringProperty descricaoProperty() {
+        return descricao;
+    }
+
+    public StringProperty tipoProperty() {
+        return tipo;
+    }
+
+    public StringProperty dataCriacaoProperty() {
+        return dataCriacao;
+    }
+
+    public StringProperty dataEntregaProperty() {
+        return dataEntrega;
+    }
+
+    public IntegerProperty idProfessorProperty() {
+        return idProfessor;
+    }
+
+    public IntegerProperty idMateriaProperty() {
+        return idMateria;
+    }
+
+    public ObservableList<Atividade> getLista() {
+        return lista;
+    }
 }
