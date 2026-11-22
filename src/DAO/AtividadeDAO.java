@@ -1,4 +1,3 @@
-
 package DAO;
 
 import java.sql.Connection;
@@ -13,7 +12,7 @@ import models.Atividade;
 
 public class AtividadeDAO implements DAO<Atividade> {
     public void insert(Atividade atividade) {
-        String sql = "INSERT INTO atividades (titulo, descricao, tipo, datacriacao, dataentrega) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO atividades (titulo, descricao, tipo, datacriacao, dataentrega, idprofessor, idmateria) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             Connection connection = Database.getConnection();
@@ -24,6 +23,8 @@ public class AtividadeDAO implements DAO<Atividade> {
             stmt.setString(3, atividade.getTipo());
             stmt.setDate(4, Date.valueOf(atividade.getDataCriacao()));
             stmt.setDate(5, Date.valueOf(atividade.getDataEntrega()));
+            stmt.setInt(6, atividade.getIdProfessor());
+            stmt.setInt(7, atividade.getIdMateria());
 
             stmt.executeUpdate();
 
@@ -34,7 +35,7 @@ public class AtividadeDAO implements DAO<Atividade> {
 
     @Override
     public void update(Atividade atividade) {
-        String sql = "UPDATE atividades SET titulo = ?, descricao = ?, tipo = ?, datacriacao = ?, dataentrega = ? WHERE id = ?";
+        String sql = "UPDATE atividades SET titulo = ?, descricao = ?, tipo = ?, datacriacao = ?, dataentrega = ?, idprofessor = ?, idmateria = ? WHERE id = ?";
 
         try {
             Connection connection = Database.getConnection();
@@ -45,7 +46,9 @@ public class AtividadeDAO implements DAO<Atividade> {
             stmt.setString(3, atividade.getTipo());
             stmt.setDate(4, Date.valueOf(atividade.getDataCriacao()));
             stmt.setDate(5, Date.valueOf(atividade.getDataEntrega()));
-            stmt.setInt(6, atividade.getId());
+            stmt.setInt(6, atividade.getIdProfessor());
+            stmt.setInt(7, atividade.getIdMateria());
+            stmt.setInt(8, atividade.getId());
 
             stmt.executeUpdate();
 
@@ -68,12 +71,14 @@ public class AtividadeDAO implements DAO<Atividade> {
 
             if (rs.next()) {
                 return new Atividade(
-                    rs.getInt("id"),
-                    rs.getString("titulo"),
-                    rs.getString("descricao"),
-                    rs.getString("tipo"),
-                    rs.getDate("datacriacao").toLocalDate(),
-                    rs.getDate("dataentrega").toLocalDate()
+                        rs.getInt("id"),
+                        rs.getString("titulo"),
+                        rs.getString("descricao"),
+                        rs.getString("tipo"),
+                        rs.getDate("datacriacao").toLocalDate(),
+                        rs.getDate("dataentrega").toLocalDate(),
+                        rs.getInt("idprofessor"),
+                        rs.getInt("idmateria")
                 );
             }
 
@@ -98,13 +103,14 @@ public class AtividadeDAO implements DAO<Atividade> {
 
             while (rs.next()) {
                 listAtividades.add(new Atividade(
-                    rs.getInt("id"),
-                    rs.getString("titulo"),
-                    rs.getString("descricao"),
-                    rs.getString("tipo"),
-                    rs.getDate("datacriacao").toLocalDate(),
-                    rs.getDate("dataentrega").toLocalDate()
-                ));
+                        rs.getInt("id"),
+                        rs.getString("titulo"),
+                        rs.getString("descricao"),
+                        rs.getString("tipo"),
+                        rs.getDate("datacriacao").toLocalDate(),
+                        rs.getDate("dataentrega").toLocalDate(),
+                        rs.getInt("idprofessor"),
+                        rs.getInt("idmateria")));
             }
 
             return listAtividades;
