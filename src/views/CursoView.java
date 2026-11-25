@@ -41,7 +41,7 @@ public class CursoView extends Application {
         stage.setScene(scn);
 
         p.add(new Label("Id: "), 0, 0);
-        p.add(new Label("Nome: "), 0, 1);
+        p.add(new Label("Nome Curso: "), 0, 1);
         p.add(new Label("Descricao: "), 0, 2);
         p.add(new Label("Turno: "), 0, 3);
         p.add(new Label("Carga Horária: "), 0, 4);

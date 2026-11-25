@@ -40,7 +40,7 @@ public class AtividadeView extends Application {
         stage.setScene(scn);
 
         p.add(new Label("Id: "), 0, 0);
-        p.add(new Label("Titulo: "), 0, 1);
+        p.add(new Label("Titulo Atividade: "), 0, 1);
         p.add(new Label("Descricao: "), 0, 2);
         p.add(new Label("Tipo: "), 0, 3);
         p.add(new Label("Data Criacao: "), 0, 4);

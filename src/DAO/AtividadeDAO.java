@@ -1,14 +1,13 @@
 package DAO;
 
+import core.Database;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import models.Atividade;
 
 public class AtividadeDAO implements DAO<Atividade> {
@@ -17,18 +16,10 @@ public class AtividadeDAO implements DAO<Atividade> {
 
     public AtividadeDAO() {
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            System.out.println("Classe carregada com sucesso");
-
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/Trabalho_POO",
-                    "root",
-                    "");
+            con = Database.getConnection();
 
             System.out.println("Conectado no banco de dados");
 
-        } catch (ClassNotFoundException e) {
-            System.out.println("Classe MariaDB nao encontrada");
         } catch (SQLException e) {
             System.out.println("Erro ao conectar no banco de dados");
             e.printStackTrace();
@@ -75,8 +66,17 @@ public class AtividadeDAO implements DAO<Atividade> {
                 a.setTitulo(rs.getString("titulo"));
                 a.setDescricao(rs.getString("descricao"));
                 a.setTipo(rs.getString("tipo"));
-                a.setDataCriacao(rs.getDate("datacriacao").toLocalDate());
-                a.setDataEntrega(rs.getDate("dataentrega").toLocalDate());
+                a.setDataCriacao(
+                        new java.util.Date(rs.getLong("datacriacao"))
+                                .toInstant()
+                                .atZone(java.time.ZoneId.systemDefault())
+                                .toLocalDate());
+
+                a.setDataEntrega(
+                        new java.util.Date(rs.getLong("dataentrega"))
+                                .toInstant()
+                                .atZone(java.time.ZoneId.systemDefault())
+                                .toLocalDate());
                 a.setIdProfessor(rs.getInt("idprofessor"));
                 a.setIdMateria(rs.getInt("idmateria"));
 
@@ -108,8 +108,17 @@ public class AtividadeDAO implements DAO<Atividade> {
                 a.setTitulo(rs.getString("titulo"));
                 a.setDescricao(rs.getString("descricao"));
                 a.setTipo(rs.getString("tipo"));
-                a.setDataCriacao(rs.getDate("datacriacao").toLocalDate());
-                a.setDataEntrega(rs.getDate("dataentrega").toLocalDate());
+                a.setDataCriacao(
+                        new java.util.Date(rs.getLong("datacriacao"))
+                                .toInstant()
+                                .atZone(java.time.ZoneId.systemDefault())
+                                .toLocalDate());
+
+                a.setDataEntrega(
+                        new java.util.Date(rs.getLong("dataentrega"))
+                                .toInstant()
+                                .atZone(java.time.ZoneId.systemDefault())
+                                .toLocalDate());
                 a.setIdProfessor(rs.getInt("idprofessor"));
                 a.setIdMateria(rs.getInt("idmateria"));
 
