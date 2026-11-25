@@ -76,4 +76,9 @@ public class Atividade {
         this.idMateria = idMateria;
     }
 
+    @Override
+    public String toString() {
+        return String.format("[%d, %s, %s, %s, %s, %s]",
+                this.id, this.titulo, this.descricao, this.tipo, this.dataCriacao, this.dataEntrega, this.idProfessor, this.idMateria);
+    }
 }

@@ -56,4 +56,9 @@ public class Curso {
         this.modalidade = modalidade;
     }
 
+    @Override
+    public String toString() {
+        return String.format("[%d, %s, %s, %s, %s, %s]",
+                this.id, this.nome, this.descricao, this.turno, this.cargaHoraria, this.modalidade);
+    }
 }
