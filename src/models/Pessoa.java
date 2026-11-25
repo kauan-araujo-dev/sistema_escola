@@ -7,8 +7,8 @@ public abstract class Pessoa {
     private String email;
     private String telefone;
 
-    public long getID() {return this.id;}
-    public void setID(long valor) { this.id = valor; }
+    public int getID() {return this.id;}
+    public void setID(int valor) { this.id = valor; }
 
     public String getNome() { return this.nome; }
     public void setNome(String valor) { this.nome = valor; }

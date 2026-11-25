@@ -30,7 +30,7 @@ public class ProfessorDAO implements DAO<Professor> {
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()){
-                p.setID(rs.getLong(1));
+                p.setID(rs.getInt(1));
             }
 
         } catch (SQLException ex) {
@@ -51,7 +51,7 @@ public class ProfessorDAO implements DAO<Professor> {
             if (rs.next()) {
                 Professor p = new Professor();
 
-                p.setID(rs.getLong("id"));
+                p.setID(rs.getInt("id"));
                 p.setNome(rs.getString("nome"));
                 p.setCpf(rs.getString("cpf"));
                 p.setEmail(rs.getString("email"));
@@ -81,7 +81,7 @@ public class ProfessorDAO implements DAO<Professor> {
             while (rs.next()) {
                 Professor p = new Professor();
 
-                p.setID(rs.getLong("id"));
+                p.setID(rs.getInt("id"));
                 p.setNome(rs.getString("nome"));
                 p.setCpf(rs.getString("cpf"));
                 p.setEmail(rs.getString("email"));

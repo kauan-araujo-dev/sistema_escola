@@ -32,7 +32,7 @@ public class AlunoDAO implements DAO<Aluno> {
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                a.setID(rs.getLong(1));
+                a.setID(rs.getInt(1));
             }
 
         } catch (SQLException e) {
@@ -83,7 +83,7 @@ public class AlunoDAO implements DAO<Aluno> {
             while (rs.next()){
                 Aluno a = new Aluno();
 
-                a.setID(rs.getLong("id"));
+                a.setID(rs.getInt("id"));
                 a.setNome(rs.getString("nome"));
                 a.setCpf(rs.getString("cpf"));
                 a.setEmail(rs.getString("email"));
