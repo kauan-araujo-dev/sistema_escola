@@ -24,7 +24,7 @@ public class CursoController {
     private CursoDAO dao = new CursoDAO();
 
     public CursoController() {
-        //pesquisarTodos();
+        pesquisarTodos();
     }
 
     public void popularCurso(Curso c) {

@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import models.Atividade;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AtividadeController {
 
@@ -27,7 +29,7 @@ public class AtividadeController {
     private AtividadeDAO dao = new AtividadeDAO();
 
     public AtividadeController() {
-        //pesquisarTodos();
+        pesquisarTodos();
     }
 
     public void popularAtividade(Atividade a) {
@@ -49,26 +51,36 @@ public class AtividadeController {
 
     public boolean salvar() {
 
-        Atividade a = new Atividade();
-        a.setTitulo(titulo.get());
-        a.setDescricao(descricao.get());
-        a.setTipo(tipo.get());
-        a.setDataCriacao(LocalDate.parse(dataCriacao.get()));
-        a.setDataEntrega(LocalDate.parse(dataEntrega.get()));
-        a.setIdProfessor(idProfessor.get());
-        a.setIdMateria(idMateria.get());
+        try {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        if (id.get() == 0) {
-            dao.insert(a);
-        } else {
-            a.setId(id.get());
-            dao.update(a);
+            Atividade a = new Atividade();
+            a.setTitulo(titulo.get());
+            a.setDescricao(descricao.get());
+            a.setTipo(tipo.get());
+
+            a.setDataCriacao(LocalDate.parse(dataCriacao.get(), formato));
+            a.setDataEntrega(LocalDate.parse(dataEntrega.get(), formato));
+
+            a.setIdProfessor(idProfessor.get());
+            a.setIdMateria(idMateria.get());
+
+            if (id.get() == 0) {
+                dao.insert(a);
+            } else {
+                a.setId(id.get());
+                dao.update(a);
+            }
+
+            pesquisarTodos();
+            limparCampos();
+
+            return true;
+
+        } catch (DateTimeParseException e) {
+            System.out.println("Erro: Digite as datas no formato dd/MM/yyyy.");
+            return false;
         }
-
-        pesquisarTodos();
-        limparCampos();
-
-        return true;
     }
 
     public void limparCampos() {
@@ -89,12 +101,17 @@ public class AtividadeController {
 
     public void atualizar(Atividade a) {
         if (a != null) {
+
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
             id.set(a.getId());
             titulo.set(a.getTitulo());
             descricao.set(a.getDescricao());
             tipo.set(a.getTipo());
-            dataCriacao.set(a.getDataCriacao().toString());
-            dataEntrega.set(a.getDataEntrega().toString());
+
+            dataCriacao.set(a.getDataCriacao().format(formato));
+            dataEntrega.set(a.getDataEntrega().format(formato));
+
             idProfessor.set(a.getIdProfessor());
             idMateria.set(a.getIdMateria());
         }
@@ -108,10 +125,8 @@ public class AtividadeController {
         lista.clear();
         lista.addAll(dao.findAll());
 
-        lista.removeIf(atividade ->
-            !atividade.getTitulo().toLowerCase()
-                .contains(a.getTitulo().toLowerCase())
-        );
+        lista.removeIf(atividade -> !atividade.getTitulo().toLowerCase()
+                .contains(a.getTitulo().toLowerCase()));
     }
 
     public IntegerProperty idProperty() {

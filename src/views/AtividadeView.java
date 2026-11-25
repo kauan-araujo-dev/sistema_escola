@@ -45,8 +45,8 @@ public class AtividadeView extends Application {
         p.add(new Label("Tipo: "), 0, 3);
         p.add(new Label("Data Criacao: "), 0, 4);
         p.add(new Label("Data Entrega: "), 0, 5);
-        p.add(new Label("Id Professor: "), 0, 6);
-        p.add(new Label("Id Materia: "), 0, 7);
+        p.add(new Label("Código do Professor: "), 0, 6);
+        p.add(new Label("Código da Materia: "), 0, 7);
 
         TextField txtId = new TextField();
         txtId.setEditable(false);
@@ -92,11 +92,11 @@ public class AtividadeView extends Application {
         colDataEntrega.setCellValueFactory(
                 item -> new ReadOnlyStringWrapper(item.getValue().getDataEntrega().toString()));
 
-        TableColumn<Atividade, Integer> colIdProfessor = new TableColumn<>("Id Professor");
+        TableColumn<Atividade, Integer> colIdProfessor = new TableColumn<>("Código do Professor");
         colIdProfessor.setCellValueFactory(
                 item -> new ReadOnlyObjectWrapper<>(item.getValue().getIdProfessor()));
 
-        TableColumn<Atividade, Integer> colIdMateria = new TableColumn<>("Id Materia");
+        TableColumn<Atividade, Integer> colIdMateria = new TableColumn<>("Código da Materia");
         colIdMateria.setCellValueFactory(
                 item -> new ReadOnlyObjectWrapper<>(item.getValue().getIdMateria()));
 

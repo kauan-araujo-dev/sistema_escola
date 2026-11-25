@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import models.Curso;
 
 public class CursoDAO implements DAO<Curso> {
@@ -20,7 +21,7 @@ public class CursoDAO implements DAO<Curso> {
             System.out.println("Classe carregada com sucesso");
 
             con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/CURSOS_POO",
+                    "jdbc:mariadb://localhost:3306/Trabalho_POO",
                     "root",
                     "");
 
