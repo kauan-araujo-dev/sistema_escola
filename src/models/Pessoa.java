@@ -1,7 +1,7 @@
 package models;
 
 public abstract class Pessoa {
-    private long id;
+    private int id;
     private String nome;
     private String cpf;
     private String email;
