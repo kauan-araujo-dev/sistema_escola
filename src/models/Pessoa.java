@@ -1,7 +1,7 @@
 package models;
 
 public abstract class Pessoa {
-    private long id;
+    private int id;
     private String nome;
     private String cpf;
     private String email;
@@ -15,5 +15,11 @@ public abstract class Pessoa {
 
     public String getCpf() { return this.cpf; }
     public void setCpf(String valor) { this.cpf = valor; }
+
+    public String getEmail() { return this.email; }
+    public void setEmail(String valor) { this.email = valor; }
+
+    public String getTelefone() { return this.telefone; }
+    public void setTelefone(String valor) { this.telefone = valor; }
 }
 

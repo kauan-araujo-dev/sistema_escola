@@ -1,6 +1,6 @@
 package models;
 
-public class Aluno {
+public class Aluno extends Pessoa {
     private String matricula;
 
     public String getMatricula() { return this.matricula; }
