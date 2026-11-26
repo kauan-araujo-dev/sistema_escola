@@ -1,8 +1,6 @@
 package views;
 
 import controllers.AtividadeController;
-import models.Atividade;
-
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyLongWrapper;
@@ -24,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
+import models.Atividade;
 
 public class AtividadeView extends Application {
 
@@ -33,12 +32,14 @@ public class AtividadeView extends Application {
     @Override
     public void start(Stage stage) {
 
+        // organiza a interface em regiões (topo, centro, laterais e base).
         BorderPane panPrincipal = new BorderPane();
+        // organiza os componentes em linhas e colunas.
         GridPane p = new GridPane();
 
         Scene scn = new Scene(panPrincipal, 600, 400);
         stage.setScene(scn);
-
+        // labels de descrição dos campos
         p.add(new Label("Id: "), 0, 0);
         p.add(new Label("Titulo Atividade: "), 0, 1);
         p.add(new Label("Descricao: "), 0, 2);
@@ -48,6 +49,7 @@ public class AtividadeView extends Application {
         p.add(new Label("Código do Professor: "), 0, 6);
         p.add(new Label("Código da Materia: "), 0, 7);
 
+        // campos de inserção de dados
         TextField txtId = new TextField();
         txtId.setEditable(false);
 
@@ -68,6 +70,8 @@ public class AtividadeView extends Application {
         p.add(txtIdProfessor, 1, 6);
         p.add(txtIdMateria, 1, 7);
 
+        // Criação das colunas da tableview
+        // Cada coluna representa um atributo
         TableColumn<Atividade, Long> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(
                 item -> new ReadOnlyLongWrapper(item.getValue().getId()).asObject());
@@ -100,6 +104,7 @@ public class AtividadeView extends Application {
         colIdMateria.setCellValueFactory(
                 item -> new ReadOnlyObjectWrapper<>(item.getValue().getIdMateria()));
 
+        // coluna dos botões de ação
         TableColumn<Atividade, Void> colAcoes = new TableColumn<>("Ações");
         Callback<TableColumn<Atividade, Void>, TableCell<Atividade, Void>> callback = new Callback<>() {
             public TableCell<Atividade, Void> call(TableColumn<Atividade, Void> tc) {
@@ -107,6 +112,7 @@ public class AtividadeView extends Application {
 
                     private final Button btnExcluir = new Button("Excluir");
                     private final Button btnAtualizar = new Button("Atualizar");
+                    // organiza botões
                     private final HBox painelBotoes = new HBox();
 
                     {
@@ -123,6 +129,7 @@ public class AtividadeView extends Application {
                         });
                     }
 
+                    // atualiza a aparência da célula conforme ela está preenchida ou não.
                     public void updateItem(Void valor, boolean empty) {
                         super.updateItem(valor, empty);
                         if (!empty) {
@@ -137,7 +144,7 @@ public class AtividadeView extends Application {
         };
 
         colAcoes.setCellFactory(callback);
-
+        // Adiciona todas as colunas criadas a tableview
         table.getColumns().addAll(
                 colId, colTitulo, colDescricao, colTipo,
                 colDataCriacao, colDataEntrega, colIdProfessor,
@@ -145,6 +152,7 @@ public class AtividadeView extends Application {
 
         table.setItems(control.getLista());
 
+        // observa quando o usuário seleciona uma linha da tabela.
         table.getSelectionModel()
                 .selectedItemProperty()
                 .addListener(
@@ -152,14 +160,17 @@ public class AtividadeView extends Application {
                             control.popularAtividade(novo);
                         });
 
+        // ligação entre textfields e property do controle
         Bindings.bindBidirectional(txtId.textProperty(), control.idProperty(), new NumberStringConverter());
         Bindings.bindBidirectional(txtTitulo.textProperty(), control.tituloProperty());
         Bindings.bindBidirectional(txtDescricao.textProperty(), control.descricaoProperty());
         Bindings.bindBidirectional(txtTipo.textProperty(), control.tipoProperty());
         Bindings.bindBidirectional(txtDataCriacao.textProperty(), control.dataCriacaoProperty());
         Bindings.bindBidirectional(txtDataEntrega.textProperty(), control.dataEntregaProperty());
-        Bindings.bindBidirectional(txtIdProfessor.textProperty(), control.idProfessorProperty(), new NumberStringConverter());
-        Bindings.bindBidirectional(txtIdMateria.textProperty(), control.idMateriaProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(txtIdProfessor.textProperty(), control.idProfessorProperty(),
+                new NumberStringConverter());
+        Bindings.bindBidirectional(txtIdMateria.textProperty(), control.idMateriaProperty(),
+                new NumberStringConverter());
 
         Button btnSalvar = new Button("Salvar");
         Button btnPesquisar = new Button("Pesquisar");
@@ -177,6 +188,7 @@ public class AtividadeView extends Application {
             }
         });
 
+        //define o formulário na parte superior e a tabela na região central.
         panPrincipal.setTop(p);
         panPrincipal.setCenter(table);
 

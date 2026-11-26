@@ -30,14 +30,15 @@ public class CursoDAO implements DAO<Curso> {
         try {
             String sql = "INSERT INTO cursos (nome, descricao, turno, cargahoraria, modalidade) VALUES (?, ?, ?, ?, ?)";
 
+            // Prepara o comando SQL para execução.
             PreparedStatement stmt = con.prepareStatement(sql);
-
+            // Define os valores dos parâmetros na mesma ordem dos ? do SQL.
             stmt.setString(1, curso.getNome());
             stmt.setString(2, curso.getDescricao());
             stmt.setString(3, curso.getTurno());
             stmt.setInt(4, curso.getCargaHoraria());
             stmt.setString(5, curso.getModalidade());
-
+            // Executa o insert
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -53,12 +54,13 @@ public class CursoDAO implements DAO<Curso> {
 
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-
+            // Executa consulta e armazena o resultado
             ResultSet rs = stmt.executeQuery();
 
+            // Verifica se encontrou registro
             if (rs.next()) {
                 Curso c = new Curso();
-
+                // Transfere dados do select para objeto curso
                 c.setId(rs.getInt("id"));
                 c.setNome(rs.getString("nome"));
                 c.setDescricao(rs.getString("descricao"));
@@ -79,17 +81,18 @@ public class CursoDAO implements DAO<Curso> {
 
     @Override
     public List<Curso> findAll() {
+        // Cria lista vazia para armazenar os cursos encontrados
         List<Curso> lista = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM cursos";
 
             PreparedStatement stmt = con.prepareStatement(sql);
+            // Executa a consulta e obtém os registros.
             ResultSet rs = stmt.executeQuery();
-
+            // Percorre todos os registros retornados da consulta
             while (rs.next()) {
                 Curso c = new Curso();
-
                 c.setId(rs.getInt("id"));
                 c.setNome(rs.getString("nome"));
                 c.setDescricao(rs.getString("descricao"));

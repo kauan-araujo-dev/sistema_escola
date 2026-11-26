@@ -2,8 +2,6 @@
 package views;
 
 import controllers.CursoController;
-import models.Curso;
-
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyLongWrapper;
@@ -25,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
+import models.Curso;
 
 public class CursoView extends Application {
 
@@ -63,6 +62,8 @@ public class CursoView extends Application {
         p.add(txtCargaHoraria, 1, 4);
         p.add(txtModalidade, 1, 5);
 
+        // Criação das colunas da tableview
+        // Cada coluna representa um atributo
         TableColumn<Curso, Long> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(
                 item -> new ReadOnlyLongWrapper(item.getValue().getId()).asObject());
@@ -87,6 +88,7 @@ public class CursoView extends Application {
         colModalidade.setCellValueFactory(
                 item -> new ReadOnlyStringWrapper(item.getValue().getModalidade()));
 
+        // coluna dos botões de ação
         TableColumn<Curso, Void> colAcoes = new TableColumn<>("Ações");
         Callback<TableColumn<Curso, Void>, TableCell<Curso, Void>> callback = new Callback<>() {
             public TableCell<Curso, Void> call(TableColumn<Curso, Void> tc) {
@@ -137,7 +139,7 @@ public class CursoView extends Application {
                         (obs, antigo, novo) -> {
                             control.popularCurso(novo);
                         });
-
+        // ligação entre textfields e property do controle
         Bindings.bindBidirectional(txtId.textProperty(), control.idProperty(), new NumberStringConverter());
         Bindings.bindBidirectional(txtNome.textProperty(), control.nomeProperty());
         Bindings.bindBidirectional(txtDescricao.textProperty(), control.descricaoProperty());

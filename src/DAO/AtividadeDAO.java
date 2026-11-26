@@ -30,9 +30,9 @@ public class AtividadeDAO implements DAO<Atividade> {
     public void insert(Atividade atividade) {
         try {
             String sql = "INSERT INTO atividades (titulo, descricao, tipo, datacriacao, dataentrega, idprofessor, idmateria) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+            // Prepara o comando SQL para execução.
             PreparedStatement stmt = con.prepareStatement(sql);
-
+            // Define os valores dos parâmetros na mesma ordem dos ? do SQL.
             stmt.setString(1, atividade.getTitulo());
             stmt.setString(2, atividade.getDescricao());
             stmt.setString(3, atividade.getTipo());
@@ -40,7 +40,7 @@ public class AtividadeDAO implements DAO<Atividade> {
             stmt.setDate(5, Date.valueOf(atividade.getDataEntrega()));
             stmt.setInt(6, atividade.getIdProfessor());
             stmt.setInt(7, atividade.getIdMateria());
-
+            // Executa o insert
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -56,16 +56,17 @@ public class AtividadeDAO implements DAO<Atividade> {
 
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-
+            // executa consulta e armazena resultado
             ResultSet rs = stmt.executeQuery();
-
+            // verifica se encontrou registro
             if (rs.next()) {
                 Atividade a = new Atividade();
-
+                // Transfere dados do select para objeto atividade
                 a.setId(rs.getInt("id"));
                 a.setTitulo(rs.getString("titulo"));
                 a.setDescricao(rs.getString("descricao"));
                 a.setTipo(rs.getString("tipo"));
+                // Recupera a data do banco e converte para LocalDate
                 a.setDataCriacao(
                         new java.util.Date(rs.getLong("datacriacao"))
                                 .toInstant()
@@ -93,12 +94,14 @@ public class AtividadeDAO implements DAO<Atividade> {
 
     @Override
     public List<Atividade> findAll() {
+        // Cria lista vazia para armazenar os cursos encontrados
         List<Atividade> lista = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM atividades";
-
+            // Executa a consulta e obtém os registros.
             PreparedStatement stmt = con.prepareStatement(sql);
+            // Percorre todos os registros retornados da consulta
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

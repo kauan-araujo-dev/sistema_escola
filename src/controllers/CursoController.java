@@ -23,10 +23,12 @@ public class CursoController {
 
     private CursoDAO dao = new CursoDAO();
 
+    // carrega todos os cursos assim que o controller é criado.
     public CursoController() {
         pesquisarTodos();
     }
 
+    // preenche as propriedades do controller com os dados dos cursos
     public void popularCurso(Curso c) {
         if (c != null) {
             nome.set(c.getNome());
@@ -37,6 +39,7 @@ public class CursoController {
         }
     }
 
+    // busca todos os cursos no banco e atualiza a lista
     public void pesquisarTodos() {
         lista.clear();
         lista.addAll(dao.findAll());
@@ -77,7 +80,7 @@ public class CursoController {
         dao.delete(c.getId());
         pesquisarTodos();
     }
-
+    // carrega os dados da atividade selecionada para permitir sua edição
     public void atualizar(Curso c) {
         if (c != null) {
             id.set(c.getId());
@@ -97,10 +100,8 @@ public class CursoController {
         lista.clear();
         lista.addAll(dao.findAll());
 
-        lista.removeIf(curso ->
-            !curso.getNome().toLowerCase()
-                .contains(c.getNome().toLowerCase())
-        );
+        lista.removeIf(curso -> !curso.getNome().toLowerCase()
+                .contains(c.getNome().toLowerCase()));
     }
 
     public IntegerProperty idProperty() {
@@ -127,6 +128,7 @@ public class CursoController {
         return modalidade;
     }
 
+    // Disponibiliza lista de cursos para a view, como tableview.
     public ObservableList<Curso> getLista() {
         return lista;
     }

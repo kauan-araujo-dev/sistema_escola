@@ -1,6 +1,9 @@
 package controllers;
 
 import DAO.AtividadeDAO;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,14 +12,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Atividade;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 public class AtividadeController {
-
+    //propriedades para vincular atributos do controller no tableview
     private ObservableList<Atividade> lista = FXCollections.observableArrayList();
-
     private IntegerProperty id = new SimpleIntegerProperty(0);
     private StringProperty titulo = new SimpleStringProperty("");
     private StringProperty descricao = new SimpleStringProperty("");
@@ -31,7 +29,7 @@ public class AtividadeController {
     public AtividadeController() {
         pesquisarTodos();
     }
-
+    //preenche propriedades
     public void popularAtividade(Atividade a) {
         if (a != null) {
             titulo.set(a.getTitulo());
@@ -98,7 +96,7 @@ public class AtividadeController {
         dao.delete(a.getId());
         pesquisarTodos();
     }
-
+    // carrega os dados da atividade selecionada para permitir sua edição
     public void atualizar(Atividade a) {
         if (a != null) {
 
