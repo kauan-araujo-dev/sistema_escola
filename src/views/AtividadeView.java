@@ -25,13 +25,14 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
-public class AtividadeView extends Application {
+public class AtividadeView extends View {
 
     private AtividadeController control = new AtividadeController();
     private TableView<Atividade> table = new TableView<>();
 
     @Override
-    public void start(Stage stage) {
+    public void abrir(Stage stage) {
+        fecharEvento(stage);
 
         BorderPane panPrincipal = new BorderPane();
         GridPane p = new GridPane();
@@ -158,8 +159,10 @@ public class AtividadeView extends Application {
         Bindings.bindBidirectional(txtTipo.textProperty(), control.tipoProperty());
         Bindings.bindBidirectional(txtDataCriacao.textProperty(), control.dataCriacaoProperty());
         Bindings.bindBidirectional(txtDataEntrega.textProperty(), control.dataEntregaProperty());
-        Bindings.bindBidirectional(txtIdProfessor.textProperty(), control.idProfessorProperty(), new NumberStringConverter());
-        Bindings.bindBidirectional(txtIdMateria.textProperty(), control.idMateriaProperty(), new NumberStringConverter());
+        Bindings.bindBidirectional(txtIdProfessor.textProperty(), control.idProfessorProperty(),
+                new NumberStringConverter());
+        Bindings.bindBidirectional(txtIdMateria.textProperty(), control.idMateriaProperty(),
+                new NumberStringConverter());
 
         Button btnSalvar = new Button("Salvar");
         Button btnPesquisar = new Button("Pesquisar");
@@ -189,7 +192,4 @@ public class AtividadeView extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(AtividadeView.class, args);
-    }
 }

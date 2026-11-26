@@ -25,13 +25,14 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class AlunoMateriaView extends Application {
+public class AlunoMateriaView extends View {
 
     private AlunoMateriaController control = new AlunoMateriaController();
     private TableView<AlunoMateria> table = new TableView<>();
 
     @Override
-    public void start(Stage stage) {
+    public void abrir(Stage stage) {
+        fecharEvento(stage);
 
         BorderPane panPrincipal = new BorderPane();
         GridPane p = new GridPane();
@@ -147,27 +148,17 @@ public class AlunoMateriaView extends Application {
         panPrincipal.setCenter(table);
 
         btnPesquisar.setOnAction(e -> {
-            if (control.alunoProperty().get() != null
-                    && control.materiaProperty().get() != null) {
+            if (control.alunoProperty().get() != null) {
 
                 AlunoMateria am = new AlunoMateria(
-                    control.alunoProperty().get(),
-                    control.materiaProperty().get()
-                );
+                        control.alunoProperty().get(),
+                        control.materiaProperty().get());
 
                 control.pesquisar(am);
-            } else {
-                new Alert(AlertType.WARNING,
-                        "Selecione um aluno e uma materia para pesquisar",
-                        ButtonType.OK)
-                        .showAndWait();
             }
         });
 
         stage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(AlunoMateriaView.class, args);
-    }
 }

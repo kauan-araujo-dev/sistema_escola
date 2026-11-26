@@ -29,13 +29,14 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
-public class MateriaView extends Application {
+public class MateriaView extends View {
 
     private MateriaController control = new MateriaController();
     private TableView<Materia> table = new TableView<>();
 
     @Override
-    public void start(Stage stage) {
+    public void abrir(Stage stage) {
+        fecharEvento(stage);
 
         BorderPane panPrincipal = new BorderPane();
         GridPane p = new GridPane();
@@ -168,7 +169,4 @@ public class MateriaView extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(MateriaView.class, args);
-    }
 }

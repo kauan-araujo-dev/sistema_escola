@@ -25,13 +25,14 @@ import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 import models.Curso;
 
-public class CursoView extends Application {
+public class CursoView extends View {
 
     private CursoController control = new CursoController();
     private TableView<Curso> table = new TableView<>();
 
     @Override
-    public void start(Stage stage) {
+    public void abrir(Stage stage) {
+        fecharEvento(stage);
 
         BorderPane panPrincipal = new BorderPane();
         GridPane p = new GridPane();
@@ -178,7 +179,4 @@ public class CursoView extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(CursoView.class, args);
-    }
 }

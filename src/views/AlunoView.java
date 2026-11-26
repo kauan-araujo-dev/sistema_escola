@@ -15,16 +15,17 @@ import javafx.util.converter.NumberStringConverter;
 import models.Aluno;
 
 // extends Application é o que transforma a classe em um app JavaFX
-public class AlunoView extends Application {
+public class AlunoView extends View {
 
-    // o controller é criado aqui (e não no start) pq o launch instancia a classe antes de chamar o start
+    // o controller é criado aqui (e não no abrir) pq o launch instancia a classe antes de chamar o abrir
     // só pode ter um controller, senao tabela e campos usam controllers diferentes
     private AlunoController control = new AlunoController();
     private TableView<Aluno> table = new TableView<>(); //Tabela que cada linha tem um obj Aluno
 
-    // o start é chamado sozinho pelo javafx, é onde monta a tela. Stage = a janela
+    // o abrir é chamado sozinho pelo javafx, é onde monta a tela. Stage = a janela
     @Override
-    public void start(Stage stage) {
+    public void abrir(Stage stage) {
+fecharEvento(stage);
         BorderPane panPrincipal = new BorderPane(); //painel que decide onde cada componente fica
         GridPane p = new GridPane(); // painel em grade (linha e coluna), usado no formulario
 
@@ -185,11 +186,6 @@ public class AlunoView extends Application {
         });
 
         stage.show(); // sem isso a janela não aparece
-
-    }
-
-    public static void main(String[] args) {
-        Application.launch(AlunoView.class, args); //inicia o javafx e manda a classe AlunoView para mostrar
 
     }
 }

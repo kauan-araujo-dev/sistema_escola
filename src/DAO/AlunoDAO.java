@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.Database;
 import models.Aluno;
-
 
 // DAO = classe que fala com o banco. Aqui fica todo o SQL do aluno, o resto do sistema nao mexe em SQL
 // implements DAO<Aluno> = promete implementar os metodos da interface (insert, find, findAll, update, delete)
@@ -17,36 +17,31 @@ public class AlunoDAO implements DAO<Aluno> {
 
     private Connection con; // a conexao com o banco, se ficar null é pq a conexao falhou
 
-
-    // o construtor roda quando o controller faz new AlunoDAO(), é aqui que abre a conexao
+    // o construtor roda quando o controller faz new AlunoDAO(), é aqui que abre a
+    // conexao
     public AlunoDAO() {
         try {
-            Class.forName("org.mariadb.jdbc.Driver"); // carrega o driver do mariadb (o .jar da pasta libs), se nao achar cai no catch
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3307/escola", // tipo do banco, servidor, porta e nome do banco
-                    "root", // usuario
-                    "123456"); // senha
+            con = Database.getConnection();
+
             System.out.println("Conectado no banco de dados");
 
-        } catch (ClassNotFoundException e) {
-            System.out.println("Classe Maria DB não encontrada"); // driver nao ta no projeto
-            e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println("Erro ao conectar no banco de dados"); // senha, porta ou banco errado
-            e.printStackTrace(); // mostra o motivo real do erro
+            System.out.println("Erro ao conectar no banco de dados");
+            e.printStackTrace();
         }
     }
-
 
     // CREATE
     @Override
     public void insert(Aluno a) {
         try {
-            // cada ? é um valor que entra depois. Tem que ter o mesmo numero de ? e de colunas (5 e 5)
+            // cada ? é um valor que entra depois. Tem que ter o mesmo numero de ? e de
+            // colunas (5 e 5)
             // id nao entra pq o banco gera sozinho (AUTO_INCREMENT)
             String sql = "INSERT INTO alunos (nome, cpf, email, telefone, matricula) VALUES (?, ?, ?, ?, ?)";
 
-            // PreparedStatement monta o comando com os ? e evita SQL Injection (nunca concatenar texto no sql)
+            // PreparedStatement monta o comando com os ? e evita SQL Injection (nunca
+            // concatenar texto no sql)
             PreparedStatement stmt = con.prepareStatement(sql);
 
             // o numero é a posicao do ? (começa no 1), na ordem das colunas
@@ -72,13 +67,16 @@ public class AlunoDAO implements DAO<Aluno> {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
 
-            ResultSet rs = stmt.executeQuery(); // executeQuery é pra SELECT, devolve o ResultSet (as linhas do resultado)
+            ResultSet rs = stmt.executeQuery(); // executeQuery é pra SELECT, devolve o ResultSet (as linhas do
+                                                // resultado)
 
-            // rs.next() anda pra proxima linha e devolve false se nao tiver mais. Aqui é um so, entao if
+            // rs.next() anda pra proxima linha e devolve false se nao tiver mais. Aqui é um
+            // so, entao if
             if (rs.next()) {
                 Aluno a = new Aluno();
 
-                // transforma a linha do banco em um objeto Aluno, o nome entre aspas é o da coluna
+                // transforma a linha do banco em um objeto Aluno, o nome entre aspas é o da
+                // coluna
                 a.setID(rs.getInt("id"));
                 a.setNome(rs.getString("nome"));
                 a.setCpf(rs.getString("cpf"));
@@ -108,7 +106,7 @@ public class AlunoDAO implements DAO<Aluno> {
             ResultSet rs = stmt.executeQuery();
 
             // while pq tem varias linhas, repete ate acabar. Cada volta cria um Aluno
-            while (rs.next()){
+            while (rs.next()) {
                 Aluno a = new Aluno();
 
                 a.setID(rs.getInt("id"));

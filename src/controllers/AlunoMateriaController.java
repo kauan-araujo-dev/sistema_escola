@@ -70,8 +70,7 @@ public class AlunoMateriaController {
         lista.clear();
         lista.addAll(dao.findAll());
 
-        lista.removeIf(item -> item.getAluno().getID() != am.getAluno().getID()
-                || item.getMateria().getId() != am.getMateria().getId());
+        lista.removeIf(item -> item.getAluno().getID() != am.getAluno().getID());
     }
 
     public ObjectProperty<Aluno> alunoProperty() {

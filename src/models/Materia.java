@@ -50,4 +50,8 @@ public class Materia {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
+
+    public String toString() {
+        return this.getNome();
+    }
 }

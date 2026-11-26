@@ -15,16 +15,17 @@ import javafx.util.converter.NumberStringConverter;
 import models.Professor;
 
 // extends Application é o que transforma a classe em um app JavaFX
-public class ProfessorView extends Application {
+public class ProfessorView extends View {
 
-    // o controller é criado aqui (e não no start) pq o launch instancia a classe antes de chamar o start
+    // o controller é criado aqui (e não no abrir) pq o launch instancia a classe antes de chamar o abrir
     // só pode ter um controller, senao tabela e campos usam controllers diferentes
     private ProfessorController control = new ProfessorController();
     private TableView<Professor> table = new TableView<>(); //Tabela que cada linha tem um obj Professor
 
-    // o start é chamado sozinho pelo javafx, é onde monta a tela. Stage = a janela
+    // o abrir é chamado sozinho pelo javafx, é onde monta a tela. Stage = a janela
     @Override
-    public void start(Stage stage) {
+    public void abrir(Stage stage) {
+fecharEvento(stage);
         BorderPane panPrincipal = new BorderPane(); //painel que decide onde cada componente fica
         GridPane p = new GridPane(); // painel em grade (linha e coluna), usado no formulario
 
@@ -188,8 +189,4 @@ public class ProfessorView extends Application {
 
     }
 
-    public static void main(String[] args) {
-        Application.launch(ProfessorView.class, args); //inicia o javafx e manda a classe ProfessorView para mostrar
-
-    }
 }
