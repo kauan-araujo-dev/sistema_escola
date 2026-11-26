@@ -48,7 +48,7 @@ O projeto contempla as seguintes entidades:
 
 - **João Victor Santos Bomfim:** CRUD de Professores e CRUD de Alunos.
 - **Jobson Guilherme Alves dos Santos Santiago:** CRUD de Cursos e CRUD de Atividades.
-- **Kauan de Araujo:** CRUD de Matérias e CRUD de Notas.
+- **Kauan de Araujo:** CRUD de Matérias, CRUD de Notas e CRUD AlunoMateria.
 
 ## 9. Vídeo de Apresentação
 
